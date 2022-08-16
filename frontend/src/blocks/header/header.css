@@ -1,0 +1,30 @@
+.header {
+  min-height: 74px;
+  padding-top: 45px;
+  padding-bottom: 40px;
+}
+
+.header::after {
+  content: "";
+  display: block;
+  border: none;
+  margin: 0;
+  margin-top: 37px;
+  background-color: #545454;
+  opacity: 0.7;
+  height: 1px;
+}
+
+@media (max-width: 600px) {
+  .header {
+    min-height: 56px;
+    padding-top: 28px;
+    padding-bottom: 42px;
+  }
+}
+
+@media (max-width: 320px) {
+  .header::after {
+    margin-top: 26px;
+  }
+}

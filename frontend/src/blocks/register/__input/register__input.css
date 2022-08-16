@@ -1,0 +1,22 @@
+.register__input {
+  width: 100%;
+  margin-top: 30px;
+  font-size: 14px;
+  line-height: 17px;
+  color: #fff;
+  background: none;
+  padding-bottom: 13px;
+  border-width: 0 0 2px;
+  border-color: #cccccc;
+  outline: none;
+}
+
+.register__input:first-of-type {
+  margin-top: 0px;
+}
+
+@media (max-width: 320px) {
+  .register__input {
+    padding-bottom: 8px;
+  }
+}

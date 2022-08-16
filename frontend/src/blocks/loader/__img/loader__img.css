@@ -1,0 +1,14 @@
+.loader__img {
+  width: 250px;
+  height: 250px;
+  animation: rotate 4s infinite linear;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
