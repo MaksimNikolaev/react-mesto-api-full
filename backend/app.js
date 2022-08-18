@@ -27,7 +27,7 @@ app.use(express.json());
 
 app.use(requestLogger); // подключаем логгер запросов
 
-app.use(cors(options));
+app.use('*', cors(options));
 
 app.use(routes); // подключаем роуты
 
