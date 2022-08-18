@@ -24,6 +24,12 @@ app.use(cors({
     'https://mesto.nikolaev.nomoredomains.sbs/',
     'http://api.mesto.nikolaev.nomoredomains.sbs/',
     'https://api.mesto.nikolaev.nomoredomains.sbs/',
+    'https://api.mesto.nikolaev.nomoredomains.sbs/cards',
+    'http://api.mesto.nikolaev.nomoredomains.sbs/cards',
+    'https://api.mesto.nikolaev.nomoredomains.sbs/users/me',
+    'http://api.mesto.nikolaev.nomoredomains.sbs/users/me',
+    'https://api.mesto.nikolaev.nomoredomains.sbs/users/me/avatar',
+    'http://api.mesto.nikolaev.nomoredomains.sbs/users/me/avatar',
   ],
 }));
 
