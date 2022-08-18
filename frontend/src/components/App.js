@@ -10,7 +10,7 @@ import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import PopupWithConfirmation from "./PopupWithConfirmation";
 import Loader from "../UI/Loader";
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
 import ProtectedRoute from "./ProtectedRoute";
@@ -40,6 +40,7 @@ function App() {
     api
       .getInitialCards()
       .then((cards) => {
+        cards.sort((card1, card2) => card1['createdAt'] > card2['createdAt'] ? -1 : 1);
         setCards(cards);
         setLoadingPage(false);
       })
@@ -72,8 +73,8 @@ function App() {
     auth
       .register(password, email)
       .then((res) => {
-        if (res.data.email) {
-          setUserEmail(res.data.email);
+        if (res.user.email) {
+          setUserEmail(res.user.email);
           setStatus(true);
           setMessage("Вы успешно зарегистрировались");
           handleLoginSubmit();
@@ -96,6 +97,8 @@ function App() {
           setUserEmail(email);
           setLoggedIn(true);
           setStatus(true);
+          setLoadingPage(false);
+          checkToken();
           setMessage("Вы успешно авторизировались");
           handleLoginSubmit();
         }
@@ -113,8 +116,8 @@ function App() {
       auth
         .getContent(jwt)
         .then((res) => {
-          if (res.data.email) {
-            setUserEmail(res.data.email);
+          if (res.email) {
+            setUserEmail(res.email);
             setLoggedIn(true);
           }
         })
@@ -197,7 +200,7 @@ function App() {
 
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some((i) => i === currentUser._id);
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api
       .changeLikeCardStatus(card._id, !isLiked)
@@ -226,7 +229,7 @@ function App() {
   function handleAddPlaceSubmit(card) {
     setLoading(true);
     api
-      .addCard(card.name, card.link)
+      .addCard(card)
       .then((newCard) => {
         setCards([newCard, ...cards]);
         closeAllPopups();

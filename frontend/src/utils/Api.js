@@ -13,19 +13,19 @@ class Api {
   }
 
   getInitialCards() {
-    return fetch(`https://mesto.${this._url}cards`, {
+    return fetch(`${this._url}cards`, {
       headers: this._headers,
     }).then(this._errorHandler);
   }
 
   getInitialUser() {
-    return fetch(`https://${this._url}users/me`, {
+    return fetch(`${this._url}users/me`, {
       headers: this._headers,
     }).then(this._errorHandler);
   }
 
   setUserInfo(data) {
-    return fetch(`https://mesto.${this._url}users/me`, {
+    return fetch(`${this._url}users/me`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
@@ -35,8 +35,8 @@ class Api {
     }).then(this._errorHandler);
   }
 
-  addCard(name, link) {
-    return fetch(`https://mesto.${this._url}cards`, {
+  addCard({name, link}) {
+    return fetch(`${this._url}cards`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
@@ -47,21 +47,21 @@ class Api {
   }
 
   removeCard(id) {
-    return fetch(`https://mesto.${this._url}cards/${id}`, {
+    return fetch(`${this._url}cards/${id}`, {
       method: "DELETE",
       headers: this._headers,
     }).then(this._errorHandler);
   }
 
   changeLikeCardStatus(id, method) {
-    return fetch(`https://mesto.${this._url}cards/${id}/likes`, {
+    return fetch(`${this._url}cards/${id}/likes`, {
       method: method ? "PUT" : "DELETE",
       headers: this._headers,
     }).then(this._errorHandler);
   }
 
   updateAvatar(data) {
-    return fetch(`https://mesto.${this._url}users/me/avatar`, {
+    return fetch(`${this._url}users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
@@ -73,9 +73,9 @@ class Api {
 
 
 const api = new Api({
-  url: "nomoreparties.co/v1/cohort-41/",
+  url: "api.mesto.nikolaev.nomoredomains.sbs",
   headers: {
-    authorization: "e43cf3d4-dce7-474b-8529-7a9891978e41",
+    authorization: `Bearer ${localStorage.getItem('jwt')}`,
     "content-type": "application/json",
   },
 });

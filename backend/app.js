@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
+const cors = require('cors');
 const error = require('./middlewares/error');
 const routes = require('./routes/index');
 const NotFoundError = require('./errors/Not-found-err');
@@ -15,6 +16,8 @@ mongoose.connect('mongodb://localhost:27017/mestodb');
 app.use(express.json());
 
 app.use(requestLogger); // подключаем логгер запросов
+
+app.use(cors());
 
 app.use(routes); // подключаем роуты
 

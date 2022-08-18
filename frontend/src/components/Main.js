@@ -42,7 +42,7 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick, cards, onCa
           {(() => {
                 switch(selectedFilter) {
                   case "My card": 
-                  const newArr = cards.filter((data) => {if (currentUser._id === data.owner._id) {
+                  const newArr = cards.filter((data) => {if (currentUser._id === data.owner) {
                     return (
                      <Card card={data} key={data._id} onCardClick={onCardClick} onCardLike={onCardLike} onTrashClick={onCardDelete}/>
                      )
@@ -59,7 +59,7 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick, cards, onCa
                  
                                   
                   case "Alien card": 
-                  return cards.map((data) => {if (currentUser._id !== data.owner._id) {
+                  return cards.map((data) => {if (currentUser._id !== data.owner) {
                     return (
                      <Card card={data} key={data._id} onCardClick={onCardClick} onCardLike={onCardLike} onTrashClick={onCardDelete}/>
                      )
