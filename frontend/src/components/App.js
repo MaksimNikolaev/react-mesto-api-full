@@ -36,21 +36,28 @@ function App() {
   const [status, setStatus] = useState(false);
 
   useEffect(() => {
+    if (loggedIn) {
+      setLoadingPage(true);
+      Promise.all([api.getInitialUser(), api.getInitialCards()])
+        .then(([userData, cards]) => {
+          setCurrentUser(userData);
+          cards.sort((card1, card2) => card1['createdAt'] > card2['createdAt'] ? -1 : 1);
+          setCards(cards);
+          setLoadingPage(false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [loggedIn]);
+
+  useEffect(() => {
     setLoadingPage(true);
-    api
-      .getInitialCards()
+    api.getInitialCards()
       .then((cards) => {
         cards.sort((card1, card2) => card1['createdAt'] > card2['createdAt'] ? -1 : 1);
         setCards(cards);
         setLoadingPage(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    api
-      .getInitialUser()
-      .then((promis) => {
-        setCurrentUser(promis);
       })
       .catch((err) => {
         console.log(err);
@@ -98,7 +105,6 @@ function App() {
           setLoggedIn(true);
           setStatus(true);
           setLoadingPage(false);
-          checkToken();
           setMessage("Вы успешно авторизировались");
           handleLoginSubmit();
         }

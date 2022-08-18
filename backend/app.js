@@ -16,16 +16,7 @@ app.use(express.json());
 
 app.use(requestLogger); // подключаем логгер запросов
 
-app.use(cors({
-  credentials: true,
-  origin: [
-    'http://localhost:3000',
-    'http://mesto.nikolaev.nomoredomains.sbs/',
-    'https://mesto.nikolaev.nomoredomains.sbs/',
-    'http://api.mesto.nikolaev.nomoredomains.sbs/',
-    'https://api.mesto.nikolaev.nomoredomains.sbs/',
-  ],
-}));
+app.use(cors());
 
 app.use(routes); // подключаем роуты
 
