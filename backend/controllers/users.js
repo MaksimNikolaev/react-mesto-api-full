@@ -40,7 +40,7 @@ module.exports.getUser = async (req, res, next) => {
   try {
     const user = await User.findById(req.user._id);
     if (!user) {
-      next(new NotFoundError('Пользователь по указанному _id не найден.'));
+      return next(new NotFoundError('Пользователь по указанному _id не найден.'));
     }
     res.send(user);
   } catch (err) {
@@ -68,13 +68,13 @@ module.exports.createUser = async (req, res, next) => {
   } catch (err) {
     if (err.code === 11000) {
       next(new ConflictError('Такой Email уже существует'));
-    } else {
-      next(err);
+      return;
     }
     if (err.name === 'ValidationError') {
       next(new BadRequest(`Переданы некорректные данные ${err}`));
       return;
     }
+    next(err);
   }
 };
 
