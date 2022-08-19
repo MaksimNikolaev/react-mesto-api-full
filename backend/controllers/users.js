@@ -7,6 +7,8 @@ const BadRequest = require('../errors/Bad-request-err');
 const InternalServerError = require('../errors/Internal-server-err');
 const ConflictError = require('../errors/Conflict-err');
 
+const { NODE_ENV, JWT_SECRET } = process.env;
+
 module.exports.login = async (req, res, next) => {
   const { email, password } = req.body;
   try {
@@ -18,7 +20,7 @@ module.exports.login = async (req, res, next) => {
     if (!checkPass) {
       return next(new Unauthorized('Неправильные почта или пароль.'));
     }
-    const token = jwt.sign({ _id: user._id }, 'some-secret-key', { expiresIn: '7d' });
+    const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key', { expiresIn: '7d' });
     return res.send({ token });
   } catch (err) {
     return next(new InternalServerError('Ошибка по умолчанию.'));
