@@ -49,20 +49,7 @@ function App() {
           console.log(err);
         });
     }
-  }, [loggedIn]);
-
-  useEffect(() => {
-    setLoadingPage(true);
-    api.getInitialCards()
-      .then((cards) => {
-        cards.sort((card1, card2) => card1['createdAt'] > card2['createdAt'] ? -1 : 1);
-        setCards(cards);
-        setLoadingPage(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [selectedFilter]);
+  }, [loggedIn, selectedFilter]);
 
   useEffect(() => {
     checkToken();
