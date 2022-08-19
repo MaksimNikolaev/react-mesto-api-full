@@ -21,13 +21,13 @@ app.use(cors());
 
 app.use(routes); // подключаем роуты
 
-app.use(errorLogger); // подключаем логгер ошибок
-
-app.use(errors()); // обработчик ошибок celebrate
-
 app.use((req, res, next) => {
   next(new NotFoundError('Страница не найдена'));
 });
+
+app.use(errorLogger); // подключаем логгер ошибок
+
+app.use(errors()); // обработчик ошибок celebrate
 
 app.use(error);
 

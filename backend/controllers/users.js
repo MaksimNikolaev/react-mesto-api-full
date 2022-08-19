@@ -32,7 +32,7 @@ module.exports.getUsers = async (req, res, next) => {
     const user = await User.find({});
     res.send(user);
   } catch (err) {
-    next(new InternalServerError('Ошибка по умолчанию.'));
+    return next(new InternalServerError('Ошибка по умолчанию.'));
   }
 };
 
@@ -70,6 +70,10 @@ module.exports.createUser = async (req, res, next) => {
       next(new ConflictError('Такой Email уже существует'));
     } else {
       next(err);
+    }
+    if (err.name === 'ValidationError') {
+      next(new BadRequest(`Переданы некорректные данные ${err}`));
+      return;
     }
   }
 };
